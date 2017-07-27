@@ -1,0 +1,59 @@
+<html>  
+<head>  
+<meta charset="UTF-8">  
+<title>注册</title>  
+<script type="text/javascript" src="js/jquery-3.1.1.js"></script> 
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+</head>  
+<body>   
+   <div class="container ">
+		<div class="text-left">
+			<h2 >注册</h2>
+			
+		</div>
+		<form class="form-horizontal">
+			<div class="form-group">
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="Name" id="username" name="username">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-10">
+					<input type="text" class="form-control" placeholder="Password" id="password" name="password">
+				</div>
+			</div>			
+			<div href="#" class="btn btn-success butn" >Signup</div>
+			<h4 id="info"></h4>
+		</form>
+	</div>
+  
+</body>  
+<script type="text/javascript">  
+$(document).ready(function(){  
+    $(".butn").click(function(){  
+        var username = $("#username").val();  
+        var password = $("#password").val();  
+        $.ajax({  
+             url: "../some.php",    
+             type: "POST",  
+             data:{name:username,pwd:password},  
+        }).then((res)=>{
+        	console.log(res);
+        	let code = parseInt(res);
+        	switch (code){
+        		case 0:
+        			$("#info").html('用户已存在');
+        			break;
+        		case 1:
+        			$("#info").html('注册成功');
+        			setTimeout(()=>{
+        				location.href = "login.html";
+        			},2000);
+        	}
+        },(err)=>{
+        	console.log(err);
+        });
+    })  
+})  
+</script>
+</html>  
